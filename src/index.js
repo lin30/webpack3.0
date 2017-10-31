@@ -1,6 +1,9 @@
 import "./style.css";
-import 'vue'
-import map from 'lodash/_arraymap'
-import './print.js'
-import { cube } from './math.js'
-console.log('cube(1) = ', cube(1))
+import "vue";
+import "./print.js";
+
+if (module.hot) {
+  module.hot.accept("./print.js", function() {
+    console.log("Accepting the updated printMe module!");
+  });
+}

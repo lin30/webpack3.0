@@ -9,7 +9,7 @@ const config = {
     vendor: ["vue"]
   },
   output: {
-    filename: "[name].[chunkhash:4].js",
+    filename: "[name].[hash:4].js",
     path: path.resolve(__dirname, "dist")
   },
   module: {
