@@ -10,6 +10,7 @@ const config = {
   },
   output: {
     filename: "[name].[hash:4].js",
+    chunkFilename: "[name].[hash:4].js",
     path: path.resolve(__dirname, "dist")
   },
   resolve: {
