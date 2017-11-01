@@ -12,17 +12,27 @@ const config = {
     filename: "[name].[hash:4].js",
     path: path.resolve(__dirname, "dist")
   },
+  resolve: {
+    alias: { // 取 Vue 完整版(含 template 编译)
+      'vue': 'vue/dist/vue.js'
+    },
+    extensions: ['.css', '.js', '.json', '.vue'] // 扩展名省略
+  },
   module: {
     rules: [
       {
         test: /.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /.vue$/,
+        use: 'vue-loader'
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "name your title here"
+      template: './src/index.html'
     }),
     new CleanWebpackPlugin(["dist"]),
     new webpack.HashedModuleIdsPlugin(), // 使用模块的路径，而不是数字标识符解析模块,稳定 vendor 的 hash
