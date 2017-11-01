@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin"); // 构建前清空 d
 
 const config = {
   entry: {
-    main: "./src/index.js",
+    main: "./src/main.js",
     vendor: ["vue"]
   },
   output: {

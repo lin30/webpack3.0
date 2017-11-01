@@ -13,5 +13,8 @@ module.exports = merge(config, {
     new UglifyJSPlugin({
       // sourceMap: true // 是否压缩后开启sourceMap
     })
-  ]
+  ],
+  output: {
+    filename: "[name].[chunkhash].js"
+  }
 });
