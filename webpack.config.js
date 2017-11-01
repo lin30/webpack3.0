@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin"); // 构建前清空 d
 const config = {
   entry: {
     main: "./src/main.js",
-    vendor: ["vue"]
+    vendor: ["vue", "vue-router"]
   },
   output: {
     filename: "[name].[hash:4].js",
