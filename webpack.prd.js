@@ -14,7 +14,11 @@ module.exports = merge(config, {
       // sourceMap: true // 是否压缩后开启sourceMap
     })
   ],
+  stats: { // 构建输出信息精简
+    modules: false,
+    children: false
+  },
   output: {
-    filename: "[name].[chunkhash].js"
+    filename: "[name].[chunkhash:8].js"
   }
 });

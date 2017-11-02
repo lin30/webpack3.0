@@ -9,8 +9,8 @@ const config = {
     vendor: ["vue", "vue-router"]
   },
   output: {
-    filename: "[name].[hash:4].js",
-    chunkFilename: "[name].[hash:4].js",
+    filename: "[name].[hash:8].js", // 对应 entry 的文件
+    chunkFilename: "[name].[chunkhash:8].js", // 对应 entry 之外的文件
     path: path.resolve(__dirname, "dist")
   },
   resolve: {
