@@ -31,6 +31,10 @@ const config = {
       }
     ]
   },
+  stats: { // 构建输出信息精简
+    modules: false,
+    children: false
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
