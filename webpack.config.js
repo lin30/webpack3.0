@@ -27,7 +27,13 @@ const config = {
       },
       {
         test: /.vue$/,
-        use: 'vue-loader'
+        use: 'vue-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
   },
