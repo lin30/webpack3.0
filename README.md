@@ -1,6 +1,7 @@
 # webpack3.0
 ## vue + 多页面
-
+- 入口文件 entry.js
+- 页面 title 配置文件 pages.js
 
 ## 特性更新
 - Scope Hoisting 合并多个模块的包裹函数,即连接所有闭包到一个闭包里，放入一个函数.速度变快,体积变小

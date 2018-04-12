@@ -5,15 +5,14 @@ const CleanWebpackPlugin = require("clean-webpack-plugin"); // 构建前清空 d
 const HappyPack = require('happypack')
 const os = require('os')
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const entry = require('./entry');
+const pages = require('./pages');
 
 const config = {
-  entry: {
-    main: "./src/index.js",
-    vendor: ["vue"]
-  },
+  entry: { vendor: ['vue'], ...entry },
   output: {
     filename: "[name].[hash:4].js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist/pages")
   },
   module: {
     rules: [
@@ -24,9 +23,9 @@ const config = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: "name your title here"
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: "name your title here"
+    // }),
     new webpack.optimize.ModuleConcatenationPlugin(), // Scope Hoisting
     new CleanWebpackPlugin(["dist"]),
     new webpack.HashedModuleIdsPlugin(), // 使用模块的路径，而不是数字标识符解析模块,稳定 vendor 的 hash
@@ -39,7 +38,24 @@ const config = {
       id: 'happy-css',
       loaders: ['style-loader', 'css-loader'],
       threadPool: happyThreadPool,
+      verbose: false
     })
   ]
 };
+// 根据入口js数组生成页面
+Object.keys(entry).forEach((item) => {
+
+    var cfg = {
+        filename: item + '.html',
+        template: path.resolve(__dirname, './src/index.html'),
+        chunks: ['vendor', 'runtime', item]
+    }
+    if (pages[item]) {
+      cfg.title = pages[item]
+    }
+    console.log(cfg)
+    config.plugins.push(new HtmlWebpackPlugin(cfg));
+
+})
+
 module.exports = config;
