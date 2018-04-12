@@ -23,7 +23,13 @@ const config = {
       {
         test: /.vue$/,
         use: ['happypack/loader?id=happy-vue']
-      }
+      },
+      {
+        test: /.js$/,
+        use: ['happypack/loader?id=happy-js'],
+        include: path.resolve(__dirname, "src"),
+        exclude: /node_modules/
+      },
     ]
   },
   plugins: [
@@ -36,7 +42,11 @@ const config = {
     new webpack.optimize.CommonsChunkPlugin({
       // 提取公共模块,对不常改变的库进行缓存
       // runtime 代码主要用来处理代码模块的映射关系,不提取会打入 vendor, 导致 每次构建后 vendor hash变化
-      name: ["vendor", "runtime"]
+      name: ["vendor"]
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ["manifest"],
+      chunks: ['vendor']
     }),
     new HappyPack({
       id: 'happy-css',
@@ -47,6 +57,12 @@ const config = {
     new HappyPack({
       id: 'happy-vue',
       loaders: ['vue-loader'],
+      threadPool: happyThreadPool,
+      verbose: false
+    }),
+    new HappyPack({
+      id: 'happy-js',
+      loaders: ['babel-loader'],
       threadPool: happyThreadPool,
       verbose: false
     })
