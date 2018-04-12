@@ -19,6 +19,10 @@ const config = {
       {
         test: /.css$/,
         use: ['happypack/loader?id=happy-css']
+      },
+      {
+        test: /.vue$/,
+        use: ['happypack/loader?id=happy-vue']
       }
     ]
   },
@@ -39,6 +43,12 @@ const config = {
       loaders: ['style-loader', 'css-loader'],
       threadPool: happyThreadPool,
       verbose: false
+    }),
+    new HappyPack({
+      id: 'happy-vue',
+      loaders: ['vue-loader'],
+      threadPool: happyThreadPool,
+      verbose: false
     })
   ]
 };
@@ -53,7 +63,6 @@ Object.keys(entry).forEach((item) => {
     if (pages[item]) {
       cfg.title = pages[item]
     }
-    console.log(cfg)
     config.plugins.push(new HtmlWebpackPlugin(cfg));
 
 })

@@ -1,8 +1,8 @@
-export function square(x) {
-  return x * x;
+import Vue from 'vue'
+import App from '../container/math.vue'
+if (module.hot) {
+  module.hot.accept();
 }
-
-export function cube(x) {
-  return x * x * x;
-  
-}
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
