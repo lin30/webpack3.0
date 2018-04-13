@@ -8,6 +8,9 @@ export default {
     return {
       text: 'index page'
     }
+  },
+  created () {
+    console.log('2434')
   }
 }
 </script>

@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'index',
+  name: 'math',
   data() {
     return {
       text: 'math page'

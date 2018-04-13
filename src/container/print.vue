@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'index',
+  name: 'print',
   data() {
     return {
       text: 'print page'

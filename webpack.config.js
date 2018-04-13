@@ -10,6 +10,11 @@ const pages = require('./pages');
 
 const config = {
   entry: { vendor: ['vue'], ...entry },
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
+  },
   output: {
     filename: "[name].[hash:4].js",
     path: path.resolve(__dirname, "dist/pages")
@@ -18,54 +23,46 @@ const config = {
     rules: [
       {
         test: /.css$/,
-        use: ['happypack/loader?id=happy-css']
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /.vue$/,
-        use: ['happypack/loader?id=happy-vue']
+        use: ['vue-loader']
       },
       {
         test: /.js$/,
-        use: ['happypack/loader?id=happy-js'],
+        use: ['babel-loader'],
         include: path.resolve(__dirname, "src"),
         exclude: /node_modules/
       },
     ]
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   title: "name your title here"
-    // }),
     new webpack.optimize.ModuleConcatenationPlugin(), // Scope Hoisting
     new CleanWebpackPlugin(["dist"]),
-    new webpack.HashedModuleIdsPlugin(), // 使用模块的路径，而不是数字标识符解析模块,稳定 vendor 的 hash
     new webpack.optimize.CommonsChunkPlugin({
       // 提取公共模块,对不常改变的库进行缓存
       // runtime 代码主要用来处理代码模块的映射关系,不提取会打入 vendor, 导致 每次构建后 vendor hash变化
-      name: ["vendor"]
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ["manifest"],
-      chunks: ['vendor']
-    }),
-    new HappyPack({
-      id: 'happy-css',
-      loaders: ['style-loader', 'css-loader'],
-      threadPool: happyThreadPool,
-      verbose: false
-    }),
-    new HappyPack({
-      id: 'happy-vue',
-      loaders: ['vue-loader'],
-      threadPool: happyThreadPool,
-      verbose: false
-    }),
-    new HappyPack({
-      id: 'happy-js',
-      loaders: ['babel-loader'],
-      threadPool: happyThreadPool,
-      verbose: false
+      name: ["vendor", "runtime"]
     })
+    // new HappyPack({
+    //   id: 'happy-css',
+    //   loaders: ['style-loader', 'css-loader'],
+    //   threadPool: happyThreadPool,
+    //   verbose: false
+    // }),
+    // new HappyPack({
+    //   id: 'happy-vue',
+    //   loaders: ['vue-loader'],
+    //   threadPool: happyThreadPool,
+    //   verbose: false
+    // }),
+    // new HappyPack({
+    //   id: 'happy-js',
+    //   loaders: ['babel-loader'],
+    //   threadPool: happyThreadPool,
+    //   verbose: false
+    // })
   ]
 };
 // 根据入口js数组生成页面
